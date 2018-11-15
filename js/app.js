@@ -11,14 +11,9 @@ if(window){
 var sensibel = angular.module('sensibel', [
   'ngRoute',
   'sensibelControllers',
-  'ngAnimate',
-  'ngMessages',
-  'ui.bootstrap',
-  'ngFileUpload',
-  'ngTouch',
-  'ngMaterial',
-  'chart.js',
-  'slickCarousel'
+  'slickCarousel',
+  'ngMap',
+  'rzModule'
 ]);
 
 
@@ -30,7 +25,7 @@ sensibel.value('openApiPageName', env.openApiPageName);
 sensibel.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider
-      .when('/', {
+      .when('/:jid', {
         templateUrl: 'templates/home.html',
         controller:  'Home_Controller'
       })

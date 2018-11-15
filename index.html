@@ -3,13 +3,14 @@
 <head>
   <meta charset="utf-8">
   <title>Sensibel</title>
-  <link rel="icon" type="image/png" href="sicon.png">
+  <link rel="icon" type="image/png" href="sicon.png?i=1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="bower_components/angular-bootstrap/ui-bootstrap-csp.css">
   <link rel="stylesheet" href="css/font-awesome.css">
   <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
+  <link rel="stylesheet" type="text/css" href="bower_components/angularjs-slider/dist/rzslider.css"/>
 
   <link rel="stylesheet" href="bower_components/slick-carousel/slick/slick.css">
   <link rel="stylesheet" href="bower_components/slick-carousel/slick/slick-theme.css">
@@ -20,28 +21,20 @@
 
   
   <script src="bower_components/jquery/dist/jquery.js"></script>
-  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.min.js"></script>
 
-  <script src="bower_components/angular-animate/angular-animate.js"></script>
-  <script src="bower_components/angular-route/angular-route.js"></script>
-
-  <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
-  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-  <script src="bower_components/angular-messages/angular-messages.min.js"></script>
-  <script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
-
-  	<script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-material/angular-material.js"></script>
 	<script src="bower_components/angular-aria/angular-aria.js"></script>
-	<script src="bower_components/angular-animate/angular-animate.js"></script>
-	<script src="bower_components/angular-material/angular-material.js"></script>
-
-  <script src="bower_components/angular-touch/angular-touch.min.js"></script>
 
   <script src="bower_components/slick-carousel/slick/slick.js"></script>
   <script src="bower_components/angular-slick-carousel/dist/angular-slick.min.js"></script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDk3-LS9tLjvn4PfA8LVdwex-hwXTbNOyw"></script>
+  <script src="bower_components/ngmap/build/scripts/ng-map.min.js"></script>
+
+  <script src="bower_components/angularjs-slider/dist/rzslider.min.js"></script>
 
   <script src="env.js"></script>
 
@@ -50,13 +43,6 @@
   <script src="js/directives.js"></script>
   <script src="js/controllers.js"></script>
 
-  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.37.0/mapbox-gl.js'></script>
-  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.37.0/mapbox-gl.css' rel='stylesheet' />
-  <script src='https://api.mapbox.com/mapbox.js/plugins/turf/v2.0.2/turf.min.js'></script>
-
-  <script src="bower_components/chart.js/dist/Chart.min.js"></script>
-  <script src="bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
-
   <script src="js/main.js"></script>
 
   <script src="js/controllers/home-controller.js"></script>
@@ -64,7 +50,16 @@
 </head>
 <body id="MainController" ng-controller="mainController">
 
-  <h1>Test</h1>
+  <div class="view-container" id="MainContent">
+    <div id="MainContentInner" ng-view class="settings"></div>
+  </div>
+  
+  <div class="page-loader" ng-if="pageLoading">
+    <div class="spinner">
+      <div class="double-bounce1"></div>
+      <div class="double-bounce2"></div>
+    </div>
+  </div>
 
 </body>
 </html>

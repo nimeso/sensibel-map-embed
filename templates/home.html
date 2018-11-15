@@ -1,91 +1,20 @@
-
-
-<mapboxglobal callback="callback" markers="markers" ng-class="{'smaller': sideDrawerShowing}"></mapboxglobal>
-<div class="side-drawer" ng-class="{'active': sideDrawerShowing}">
-	<div class="toggle-drawer" ng-click="sideDrawerShowing = !sideDrawerShowing"><md-icon ng-bind="'more_vert'"></md-icon></div>
-      <!--
-      <h4 class="form-head">Projects</h4>
-
-        <md-radio-group ng-model="projectFilter">
-            <md-radio-button value="all">All</md-radio-button>
-            <md-radio-button ng-repeat="item in projects" value="{{item.ID}}">{{item.Title}}</md-radio-button>
-        </md-radio-group>
-		  -->
-
-      <h4 class="form-head">Select a date range</h4>
-
-      <div class="sub-label">Start date</div>
-      <md-datepicker ng-model="startDate" ng-change="dateRangeChanged()" md-placeholder="Enter date"></md-datepicker>
-      <div class="sub-label pad-top">End date</div>
-      <md-datepicker ng-model="endDate" ng-change="dateRangeChanged()" md-placeholder="Enter date"></md-datepicker>
-      <div class="side-bar-div"></div>
-
-	    <h4 class="form-head">Rating<span class="clear-filter" ng-click="clearRatingFilter()"><md-icon ng-bind="'close'"></md-icon>Clear</span></h4>
-      <div id="SideBarRatingSelector">
-        <div class="rating-btn neg" ng-class="isActiveRating(-3)" ng-click="changeRatingFilter(-3)">-3</div>
-        <div class="rating-btn neg" ng-class="isActiveRating(-2)" ng-click="changeRatingFilter(-2)">-2</div>
-        <div id="DefaultNeg" class="rating-btn neg" ng-class="isActiveRating(-1)" ng-click="changeRatingFilter(-1)">-1</div>
-        <div class="rating-div"></div>
-        <div id="DefaultPos" class="rating-btn pos" ng-class="isActiveRating(1)" ng-click="changeRatingFilter(1)">+1</div>
-        <div class="rating-btn pos" ng-class="isActiveRating(2)" ng-click="changeRatingFilter(2)">+2</div>
-        <div class="rating-btn pos" ng-class="isActiveRating(3)" ng-click="changeRatingFilter(3)">+3</div>
-      </div>
-      <div class="side-bar-div"></div>
-
-      <!--
-    	<h4 class="form-head">Transportation</h4>
-  		<md-radio-group ng-model="typeFilter">
-    			<md-radio-button value="all">All</md-radio-button>
-    			<md-radio-button value="walk">Walking</md-radio-button>
-    			<md-radio-button value="bike">Biking</md-radio-button>
-    			<md-radio-button value="bus">Busing</md-radio-button>
-    			<md-radio-button value="car">Driving</md-radio-button>
-          <md-radio-button value="boat">Boating</md-radio-button>
-    			<md-radio-button value="disabled">Disabled</md-radio-button>
-  		</md-radio-group>
-      -->
-
-      <h4 class="form-head">Category<span class="clear-filter" ng-click="clearCategoryFilter()"><md-icon ng-bind="'close'"></md-icon>Clear</span></h4>
-      <div id="CategoryFilterSelector">
-        <div class="cat-item" ng-class="isActiveCategory(item.ID)" ng-repeat="item in categories" value="{{item.ID}}" ng-click="changeCategoryFilter(item.ID)"><img class="cat-icon" src="{{item.IconPositiveLink}}" /> {{item.Title}}</div>
-      </div>
-      <!--
-      <md-radio-group ng-model="categoryFilter">
-          <md-radio-button value="all">All</md-radio-button>
-          <md-radio-button ng-repeat="item in categories" value="{{item.ID}}">{{item.Title}}</md-radio-button>
-      </md-radio-group>
-      -->
-
+<div id="Map">
+  <ng-map center="41,-87" zoom="3" disable-default-u-i="true" map-type-id="{{mapType}}" style="height: 100%" styles='[{"elementType":"geometry","stylers":[{"color":"#212121"}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"elementType":"labels.text.fill","stylers":[{"color":"#757575"}]},{"elementType":"labels.text.stroke","stylers":[{"color":"#212121"}]},{"featureType":"administrative","elementType":"geometry","stylers":[{"color":"#757575"}]},{"featureType":"administrative.country","elementType":"labels.text.fill","stylers":[{"color":"#9e9e9e"}]},{"featureType":"administrative.land_parcel","stylers":[{"visibility":"off"}]},{"featureType":"administrative.locality","elementType":"labels.text.fill","stylers":[{"color":"#bdbdbd"}]},{"featureType":"poi","elementType":"labels.text.fill","stylers":[{"color":"#757575"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#181818"}]},{"featureType":"poi.park","elementType":"labels.text.fill","stylers":[{"color":"#616161"}]},{"featureType":"poi.park","elementType":"labels.text.stroke","stylers":[{"color":"#1b1b1b"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#2c2c2c"}]},{"featureType":"road","elementType":"labels.text.fill","stylers":[{"color":"#8a8a8a"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#373737"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#3c3c3c"}]},{"featureType":"road.highway.controlled_access","elementType":"geometry","stylers":[{"color":"#4e4e4e"}]},{"featureType":"road.local","elementType":"labels.text.fill","stylers":[{"color":"#616161"}]},{"featureType":"transit","elementType":"labels.text.fill","stylers":[{"color":"#757575"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#000000"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"color":"#3d3d3d"}]}]'>
+    <marker ng-repeat="p in points" position="{{p}}"></marker>
+  </ng-map>
 </div>
-
-<div id="Nav" ng-show="showMenu">
-      <div class="logo">
-          <div id="navicon" ng-class="{'open': subMenuOpen}" ng-click="subMenuOpen = !subMenuOpen">
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-          </div>
-      </div>
-      <a class="item" ng-repeat="item in $parent.navItems" href="{{item.url}}" ng-class="{'active': item.active}" ng-click="setNavActive($index)">
-          <img src="img/{{item.img}}.svg" />
-      </a>
-</div>
-
-<div class="sub-menu" ng-class="{'open': subMenuOpen}">
-    <div class="padding">
-      <h3 ng-if="$parent.member.FirstName && $parent.isLoggedIn">Welcome back {{$parent.member.FirstName}}</h3>
-      <h3 ng-if="!$parent.isLoggedIn">Sign up to get started</h3>
-      <ul>
-          <li ng-if="!$parent.isLoggedIn"><a href="#!/login"><md-icon ng-bind="'power_settings_new'"></md-icon> Log In</a></li>
-          <li ng-if="!$parent.isLoggedIn"><a href="#!/signup"><md-icon ng-bind="'check_circle'"></md-icon> Sign Up</a></li>
-
-          <li ng-if="$parent.isLoggedIn"><a href="#"><md-icon ng-bind="'account_circle'"></md-icon> Your profile</a></li>
-          <li ng-if="$parent.isLoggedIn"><a href="#"><md-icon ng-bind="'settings'"></md-icon> Settings</a></li>
-          <li ng-if="$parent.isLoggedIn"><a href="#" ng-click="$parent.logout()"><md-icon ng-bind="'power_settings_new'"></md-icon> Log Out</a></li>
-          <li><hr></li>
-          <li><a href="#"><md-icon ng-bind="'perm_phone_msg'"></md-icon> Contact Us</a></li>
-          <li><a href="#"><md-icon ng-bind="'face'"></md-icon> About Us</a></li>
-      </ul>
+<div id="Content">
+  <h2>{{journey.Title}}</h2>
+  <div id="Details">
+    <div class="images">
+      <slick dots=true infinite="true" slides-to-show="1" slides-to-scroll="1" arrows="false" ng-if="!$parent.pageLoading">
+        <div class="slick-item" ng-repeat="image in images">
+          <img ng-src="{{image.LanscapeImage}}" />
+        </div>
+      </slick>
     </div>
+    <h3><img src="{{titleIcon}}" />{{title}}</h3>
+    <div class="description" ng-bind-html="description"></div>
+    <rzslider rz-slider-model="numberPoints" ng-if="!$parent.pageLoading"></rzslider>
+  </div>
 </div>

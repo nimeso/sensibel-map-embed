@@ -1,20 +1,57 @@
-<div id="Map">
+
+
+<div id="Map" ng-class="isSmallerMap()">
   <ng-map center="41,-87" zoom="3" disable-default-u-i="true" map-type-id="{{mapType}}" style="height: 100%" styles='[{"elementType":"geometry","stylers":[{"color":"#212121"}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"elementType":"labels.text.fill","stylers":[{"color":"#757575"}]},{"elementType":"labels.text.stroke","stylers":[{"color":"#212121"}]},{"featureType":"administrative","elementType":"geometry","stylers":[{"color":"#757575"}]},{"featureType":"administrative.country","elementType":"labels.text.fill","stylers":[{"color":"#9e9e9e"}]},{"featureType":"administrative.land_parcel","stylers":[{"visibility":"off"}]},{"featureType":"administrative.locality","elementType":"labels.text.fill","stylers":[{"color":"#bdbdbd"}]},{"featureType":"poi","elementType":"labels.text.fill","stylers":[{"color":"#757575"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#181818"}]},{"featureType":"poi.park","elementType":"labels.text.fill","stylers":[{"color":"#616161"}]},{"featureType":"poi.park","elementType":"labels.text.stroke","stylers":[{"color":"#1b1b1b"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#2c2c2c"}]},{"featureType":"road","elementType":"labels.text.fill","stylers":[{"color":"#8a8a8a"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#373737"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#3c3c3c"}]},{"featureType":"road.highway.controlled_access","elementType":"geometry","stylers":[{"color":"#4e4e4e"}]},{"featureType":"road.local","elementType":"labels.text.fill","stylers":[{"color":"#616161"}]},{"featureType":"transit","elementType":"labels.text.fill","stylers":[{"color":"#757575"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#000000"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"color":"#3d3d3d"}]}]'>
-    <marker ng-repeat="p in points" position="{{p}}"></marker>
+    <marker ng-repeat="p in points" position="{{p.Position}}" icon="{{p.Icon}}" on-click="loadPoint(p.ID)" on-mouseover="markerOver(p.ID)" on-mouseout="markerOut(p.ID)"></marker>
+    <shape 
+      name="polyline" 
+      id="TrackPoints" 
+      path="{{trackPoints}}" 
+      geodesic="true" 
+      stroke-color="rgb(251, 99, 0)" 
+      stroke-opacity="1" 
+      stroke-weight="{{polylineStrokeWeight}}"
+      on-mouseover="polylineOver()"  
+      on-mouseout="polylineOut()"
+    </shape>
   </ng-map>
 </div>
-<div id="Content">
-  <h2>{{journey.Title}}</h2>
+<div id="Content" ng-class="isSmallerMap()">
+  <h2><span class="reset-journey" ng-class="showBack()" ng-show="sliderOptions.value != 0" ng-click="resetJourney()" ></span><span class="j-title" ng-class="showBack()">{{journey.Title}}</span></h2>
   <div id="Details">
     <div class="images">
-      <slick dots=true infinite="true" slides-to-show="1" slides-to-scroll="1" arrows="false" ng-if="!$parent.pageLoading">
+      <div class="default-image" ></div>
+      <slick dots=true infinite="true" slides-to-show="1" slides-to-scroll="1" arrows="false" ng-if="!$parent.pageLoading && images.length > 0">
         <div class="slick-item" ng-repeat="image in images">
           <img ng-src="{{image.LanscapeImage}}" />
+          <div class="full-screen" ng-if="!$parent.pageLoading && images.length > 0" ng-click="fullScreenImage(image)"></div>
         </div>
       </slick>
+      <img class='google-image' ng-if="!images || $parent.pageLoading" ng-src='https://maps.googleapis.com/maps/api/streetview?size=300x187&location={{point.Lat}},{{point.Lng}}&fov=90&heading=235&pitch=10&key=AIzaSyAkDskf-VBccM0Z0KeGA2P3jrUwaOYVDCE' />
+      
     </div>
-    <h3><img src="{{titleIcon}}" />{{title}}</h3>
+    <h3><img src="{{titleIcon}}" ng-click="getJourney(2511)" />{{title}}</h3>
     <div class="description" ng-bind-html="description"></div>
-    <rzslider rz-slider-model="numberPoints" ng-if="!$parent.pageLoading"></rzslider>
+    <rzslider ng-if="!$parent.pageLoading" rz-slider-model="sliderOptions.value" rz-slider-options="sliderOptions.options"></rzslider>
+    <div class="scroll-arrow back" ng-if="!$parent.pageLoading" ng-click="sliderPrev()"></div>
+    <div class="scroll-arrow next" ng-if="!$parent.pageLoading" ng-click="sliderNext()"></div>
   </div>
+  <div class="content-loader" ng-if="contentLoading">
+    <div class="spinner">
+      <div class="double-bounce1"></div>
+      <div class="double-bounce2"></div>
+    </div>
+  </div>
+</div>
+<div id="DistanceHolder" ng-class="isSmallerMap()">
+  <div id="JourneyDistance" ng-if="!$parent.pageLoading && journeyDistance">{{journeyDistance}} km</div>
+  <div id="JourneyTime" ng-if="!$parent.pageLoading && journeyTime">{{journeyTime}}</div>
+</div>
+<div id="MapTypes" ng-class="isSmallerMap()">
+  <div class="map-type road" ng-class="activeMapType('roadmap')" ng-click="mapType = 'roadmap'"></div>
+  <div class="map-type sat" ng-class="activeMapType('satellite')" ng-click="mapType = 'satellite'"></div>
+</div>
+<div id="Gallery" ng-show="currentGalleryImage.length > 0">
+  <div class="gallery-image" style="background-image: url({{currentGalleryImage}});"></div>
+  <div class="contract-screen" ng-click="currentGalleryImage = ''"></div>
 </div>

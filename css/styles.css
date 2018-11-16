@@ -9,7 +9,7 @@ body{
     width: 100vw;
     overflow: hidden;
     font-size: 14px;
-    background-color: #2c2f2e;
+    background-color: #373d3b;
     color: #333;
 }
 
@@ -29,8 +29,15 @@ a:hover{
 
 /* framework */
 #Map {
-  width: calc(100vw - 300px);
+  width: calc(100vw);
   height: 100vh;
+  position: absolute;
+  z-index: 44;
+  background: #333;
+}
+
+#Map.smaller {
+  width: calc(100vw - 300px);
 }
 
 #Content {
@@ -42,12 +49,45 @@ a:hover{
   background-color: #373d3b;
 }
 
+#Content.smaller {
+
+}
+
 #Content h2 {
+  height: 52px;
   color: #fff;
   font-size: 20px;
   letter-spacing: .03em;
   padding: 15px 20px;
   margin: 0px;
+}
+
+#Content h2 .j-title {
+  transition: all 0.1s ease;
+}
+
+#Content h2 .j-title.padding {
+  padding-left: 20px;
+}
+
+#Content h2 .reset-journey {
+    width: 0px;
+    height: 52px;
+    background: #333 url(../img/back.png) no-repeat;
+    background-size: 7px;
+    cursor: pointer;
+    background-position: 7px 7px;
+    /* display: block; */
+    /* margin: 1px 10px -10px -10px; */
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    transition: all 0.1s ease;
+    background-position: center;
+}
+
+#Content h2 .reset-journey.padding {
+  width: 31px;
 }
 
 #Content h3 {
@@ -70,7 +110,7 @@ a:hover{
   font-size: 14px;
   font-weight: 400;
   padding: 0px 30px 10px 20px;
-  height: calc(100vh - 400px);
+  height: calc(100vh - 364px);
   overflow-y: auto;
   line-height: 18px;
 }
@@ -88,12 +128,176 @@ a:hover{
   color: #fff;
 }
 
+.content-loader {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 31px;
+  background: rgba(44,47,46,.8)
+}
+
+/* slider */
+.rzslider {
+  width: 240px;
+  left: 30px;
+}
+
+.rzslider .rz-bar-wrapper {
+  background: #333;
+  margin-top: -14px;
+  height: 31px;
+}
+
+.rzslider .rz-bubble {
+  display: none;
+}
+
+.rzslider .rz-bar {
+  display: none;
+}
+
+.rzslider .rz-pointer {
+  background-color: rgb(251, 99, 0);
+  width: 8px;
+  border-radius: 0px;
+  height: 31px;
+}
+
+.rzslider .rz-pointer:focus {
+  outline: none;
+}
+
+.rzslider .rz-pointer:after {
+  display: none;
+}
+
+.scroll-arrow {
+  width: 30px;
+  height: 31px;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  background: #9acdb5 url(../img/arrow-back.png) no-repeat 9px 5px;
+  cursor: pointer;
+}
+
+.scroll-arrow.next {
+  left: auto;
+  right: 0px;
+  background: #9acdb5 url(../img/arrow-next.png) no-repeat 9px 5px;
+}
+
+/* Distance */
+#DistanceHolder {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 45;
+  transition: all 3s ease;
+}
+
+#DistanceHolder.smaller {
+  left: 0px;
+}
+
+#JourneyDistance {
+  background: #9acdb5;
+  padding: 10px 15px;
+  font-size: 18px;
+  color: #fff;
+  letter-spacing: .04em;
+}
+
+#JourneyTime {
+  background: #333;
+  padding: 10px 15px;
+  font-size: 16px;
+  color: #fff;
+  letter-spacing: .04em;
+}
+
+/* map types */
+#MapTypes {
+  position: absolute;
+  top: -80px;
+  right: 365px;
+  z-index: 45;
+  transition: all 3s;
+}
+
+
+#MapTypes.smaller {
+  top: 0px;
+}
+
+#MapTypes .map-type {
+  width: 50px;
+  height: 50px;
+  border-radius: 60px;
+  background: url(../img/map-type-2.png) no-repeat;
+  background-size: 50px 50px;
+  position: absolute;
+  border: 1px solid #fff;
+  top: 10px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+
+#MapTypes .map-type:hover {
+  transform: rotate(25deg);
+}
+
+#MapTypes .map-type.active{
+  border: 1px solid rgb(251, 99, 0);
+}
+
+#MapTypes .map-type.road {
+    background: url(../img/map-type-1.png) no-repeat;
+    background-size: 50px 50px;
+    right: 10px;
+}
 /* Map */
 #Map iframe {
   height: 100vh;
 }
 
 /* slick */
+.slick-slide {
+  position: relative;
+}
+
+.images {
+  height: 187px;
+  position: relative;
+  overflow: hidden;
+}
+
+.full-screen {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 31px;
+  height: 31px;
+  background: #9acdb5 url(../img/expand.png) no-repeat;
+  background-size: 18px;
+  cursor: pointer;
+  background-position: 7px 7px;
+}
+
+.images .default-image{
+  height: 187px;
+  width: 300px;
+  position: absolute;
+  background: url(../img/default-image.png) no-repeat;
+  background-position: center center;
+}
+
+.google-image {
+  position: absolute;
+}
+
 .slick-dotted.slick-slider {
     margin-bottom: 0px;
 }
@@ -122,6 +326,41 @@ a:hover{
     color: #FA6300;
 }
 
+/* Gallery */
+#Gallery {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: rgba(44,47,46,.8);
+  z-index: 9999;
+}
+
+.gallery-image{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  margin: 60px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+}
+
+.contract-screen {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 31px;
+  height: 31px;
+  background: #9acdb5 url(../img/contract.png) no-repeat;
+  background-size: 18px;
+  cursor: pointer;
+  background-position: 7px 7px;
+}
+
 /* loaders */
 .page-loader {
   position: absolute;
@@ -143,12 +382,24 @@ a:hover{
   transform: translateX(-50%) translateY(-50%);
 }
 
-.double-bounce1, .double-bounce2 {
+.double-bounce2 {
   width: 100%;
   height: 100%;
   border-radius: 50%;
   background-color: #9acdb5;
-  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+  animation: sk-bounce 2.0s infinite ease-in-out;
+}
+
+.double-bounce1 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 9px solid #9acdb5;
   position: absolute;
   top: 0;
   left: 0;
@@ -164,6 +415,16 @@ a:hover{
 @-webkit-keyframes sk-bounce {
   0%, 100% { -webkit-transform: scale(0.0) }
   50% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bounce-1 {
+  0%, 100% { 
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 50% { 
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
 }
 
 @keyframes sk-bounce {
